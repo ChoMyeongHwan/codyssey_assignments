@@ -126,6 +126,11 @@ fi
 mkdir -p "$AGENT_HOME/upload_files" "$AGENT_HOME/api_keys" "$AGENT_HOME/bin"
 mkdir -p "/var/log/agent-app"
 
+# [인증 키 파일 더블 바인딩] -> 순서 변경
+# B1-1과 B1-2의 요구 규격 파일명이 서로 미세하게 다른 점을 상쇄하기 위해 두 버전 모두 생성해 둡니다.
+echo "agent_api_key_test" > "$AGENT_HOME/api_keys/secret.key"
+echo "agent_api_key_test" > "$AGENT_HOME/api_keys/t_secret.key"
+
 # 1차적으로 모든 방의 기본 소유권자와 메인 그룹을 시스템 총괄 유저(agent-admin)로 지정합니다.
 chown -R "${TARGET_USER}:${TARGET_USER}" "$AGENT_HOME"
 chown -R "${TARGET_USER}:${TARGET_USER}" "/var/log/agent-app"
@@ -162,10 +167,9 @@ setfacl -m g:agent-core:rwx "/var/log/agent-app"
 setfacl -d -m g:agent-core:rwx "/var/log/agent-app"
 chmod 770 "/var/log/agent-app"
 
-# [인증 키 파일 더블 바인딩]
-# B1-1과 B1-2의 요구 규격 파일명이 서로 미세하게 다른 점을 상쇄하기 위해 두 버전 모두 생성해 둡니다.
-echo "agent_api_key_test" > "$AGENT_HOME/api_keys/secret.key"
-echo "agent_api_key_test" > "$AGENT_HOME/api_keys/t_secret.key"
+# [+추가] 마지막으로 키 파일들의 상세 그룹 권한을 확정합니다.
+chown -R "${TARGET_USER}:agent-core" "$AGENT_HOME/api_keys"
+
 # 소유자와 그룹 멤버만 읽고 수정할 수 있도록 파일을 안전하게 잠급니다 (rw-rw----)
 chmod 660 "$AGENT_HOME/api_keys/"*
 
