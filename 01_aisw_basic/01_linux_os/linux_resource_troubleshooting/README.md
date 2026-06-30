@@ -44,9 +44,9 @@ while true; do /home/agent-admin/agent-app/bin/monitor.sh; sleep 2; done
 
 | 장애 유형 | 트리거 설정값 (환경 변수) | 탐지된 핵심 시스템 로그 | 조치 내용 (Workaround) |
 | :--- | :--- | :--- | :--- |
-| **메모리 누수 (OOM)** | `MEMORY_LIMIT=200` (MB) | `[MemoryGuard] Self-terminating process` | 가용 메모리 상향 (512MB) |
-| **CPU 과점유** | `CPU_MAX_OCCUPY=10` (%) | `WATCHDOG: INITIATING EMERGENCY ABORT` | 허용 임계치 완화 (50%) |
-| **교착 상태 (Deadlock)** | `MULTI_THREAD_ENABLE=true` | `[Thread-A] WAITING... BLOCKED` | 단일 스레드 모드 전환 (`false`) |
+| [**메모리 누수 (OOM)**](https://github.com/ChoMyeongHwan/codyssey_assignments/issues/1) | `MEMORY_LIMIT=200` (MB) | `[MemoryGuard] Self-terminating process` | 가용 메모리 상향 (512MB) |
+| [**CPU 과점유**](https://github.com/ChoMyeongHwan/codyssey_assignments/issues/2) | `CPU_MAX_OCCUPY=10` (%) | `WATCHDOG: INITIATING EMERGENCY ABORT` | 허용 임계치 완화 (50%) |
+| [**교착 상태 (Deadlock)**](https://github.com/ChoMyeongHwan/codyssey_assignments/issues/3) | `MULTI_THREAD_ENABLE=true` | `[Thread-A] WAITING... BLOCKED` | 단일 스레드 모드 전환 (`false`) |
 
 ---
 
