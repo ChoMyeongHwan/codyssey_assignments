@@ -255,6 +255,15 @@ fi
 CRON_JOB="* * * * * /bin/bash -l -c '$AGENT_HOME/bin/monitor.sh'"
 (crontab -u "${TARGET_USER}" -l 2>/dev/null | grep -v "monitor.sh" ; echo "$CRON_JOB") | crontab -u "${TARGET_USER}" -
 
+# -----------------------------------------------------------------------
+# [디버깅] cron 등록 결과 출력
+# -----------------------------------------------------------------------
+echo
+echo "===== Registered Cron ====="
+crontab -u "${TARGET_USER}" -l
+echo "==========================="
+echo
+
 echo "================================================================"
 echo "🎉 [Success] All infrastructure, ACL permissions, and monitoring environments are fully established!"
 echo "💡 Please reconnect to the terminal or run 'source ~/.bashrc' to apply changes."
